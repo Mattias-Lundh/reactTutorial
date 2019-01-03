@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 class TableBody extends Component {
   renderCell = (item, column) => {
     if (column.content) return column.content(item);
 
-    return _.get(item, column.path);
+    const label = _.get(item, column.path);
+    if (column.path === "title")
+      return <Link to={"/movies/" + item._id}>{label}</Link>;
+
+    return label;
   };
 
   createKey = (item, column) => {
